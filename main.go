@@ -5,10 +5,10 @@ import (
 	"fmt"
 	_ "log"
 	_ "math/rand"
-	_ "net/http"
+	"net/http"
 	_ "strconv"
 
-	"rsc.io/quote"
+	"github.com/gorilla/mux"
 )
 
 type Movie struct {
@@ -22,5 +22,15 @@ type Director struct {
 }
 
 func main() {
-	fmt.Println(quote.Go())
+
+	router := mux.NewRouter()
+
+	//specify endpoints, handler functions and HTTP method
+
+	//router.HandleFunc("/movie", Movie).Methods("GET")
+	http.Handle("/", router)
+	fmt.Print("working")
+	//start and listen to requests
+	http.ListenAndServe(":8080", router)
+
 }
